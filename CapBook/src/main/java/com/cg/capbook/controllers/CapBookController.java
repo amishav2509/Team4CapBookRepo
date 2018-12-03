@@ -1,5 +1,7 @@
 package com.cg.capbook.controllers;
 
+import javax.servlet.http.HttpSession;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
@@ -23,9 +25,10 @@ public class CapBookController {
 			method=RequestMethod.POST,
 			consumes=MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<String> acceptUserDetails(@RequestBody UserAccount user) throws CapBookServicesDownException{
+	public ResponseEntity<String> acceptUserDetails(@RequestBody UserAccount user,HttpSession session) throws CapBookServicesDownException{
 		capBookServices.acceptUserDetails(user);
-		//System.out.println("Yes");
+		session.setAttribute("user", user);
+		System.out.println("Yes");
 		return new ResponseEntity<>("User Registered successfully",HttpStatus.OK);
 	}
 
@@ -34,15 +37,37 @@ public class CapBookController {
 			produces=MediaType.APPLICATION_JSON_VALUE,
 			headers="Accept=application/json"
 			)
-	public ResponseEntity<UserAccount> getUserDetails(@RequestParam("email") String email,@RequestParam("password") String password) {
+	public ResponseEntity<UserAccount> getUserDetails(@RequestParam("email") String email, @RequestParam("password") String password,HttpSession session){
 		UserAccount user;
 		try {
 			user = capBookServices.getUserDetails(email);
-			if(user.getPassword()!=password){
-				String msg="Incorrect password";
-			 //return new ResponseEntity<>(msg,HttpStatus.OK);	
+			if(user.getPassword().equals(password)){
+				session.setAttribute("user", user);
+			 return new ResponseEntity<>(user,HttpStatus.OK);	
 			}
-			return new ResponseEntity<>(user,HttpStatus.OK);	
+			return new ResponseEntity<>(null,HttpStatus.OK);	
+		} catch (CapBookServicesDownException | AccountNotFoundException e) {
+			e.printStackTrace();
+			return null;
+		}
+		
+	}
+	@RequestMapping(
+			value="/changePassword",
+					method=RequestMethod.POST,
+			produces=MediaType.APPLICATION_JSON_VALUE
+			
+			)
+	public ResponseEntity<UserAccount> changePassword(@RequestParam("email") String email, @RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword,HttpSession session){
+		UserAccount user;
+		try {
+			user = capBookServices.getUserDetails(email);
+			if(user.getPassword().equals(oldPassword)){
+				//session.setAttribute("user", user);
+				capBookServices.changePassword(user, newPassword);
+			 return new ResponseEntity<>(user,HttpStatus.OK);	
+			}
+			return new ResponseEntity<>(null,HttpStatus.OK);	
 		} catch (CapBookServicesDownException | AccountNotFoundException e) {
 			e.printStackTrace();
 			return null;

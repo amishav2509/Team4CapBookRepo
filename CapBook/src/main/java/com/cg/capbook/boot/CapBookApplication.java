@@ -9,7 +9,6 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @SpringBootApplication(scanBasePackages= {"com.cg.capbook"})
 @EntityScan(basePackages="com.cg.capbook.beans")
 @EnableJpaRepositories(basePackages="com.cg.capbook.daoservices")
-@EnableWebMvc
 public class CapBookApplication {
 
 	public static void main(String[] args) {

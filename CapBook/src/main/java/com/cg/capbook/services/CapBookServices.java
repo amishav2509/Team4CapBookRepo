@@ -7,4 +7,5 @@ import com.cg.capbook.exceptions.CapBookServicesDownException;
 public interface CapBookServices {
  public UserAccount acceptUserDetails(UserAccount user)throws CapBookServicesDownException;
  public UserAccount getUserDetails(String email) throws CapBookServicesDownException,AccountNotFoundException;
+ public String changePassword(UserAccount user,String newPassword) throws CapBookServicesDownException,AccountNotFoundException;
 }

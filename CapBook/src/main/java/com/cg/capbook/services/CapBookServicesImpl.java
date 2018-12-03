@@ -22,9 +22,15 @@ public class CapBookServicesImpl implements CapBookServices{
 	@Override
 	public UserAccount getUserDetails(String email)
 			throws CapBookServicesDownException, AccountNotFoundException {
-		return userAccountDAO.findById(email).orElseThrow(()->
-		new AccountNotFoundException("No such account exists."));
+		return userAccountDAO.findById(email).orElseThrow(()->new AccountNotFoundException("No such account exists."));
 		
+	}
+
+	@Override
+	public String changePassword(UserAccount user,String newPassword) throws CapBookServicesDownException, AccountNotFoundException {
+		user.setPassword(newPassword);
+		userAccountDAO.save(user);
+		return "Password changed";
 	}
 
 }
