@@ -1,5 +1,7 @@
 package com.cg.capbook.controllers;
 
+import java.util.List;
+
 import javax.servlet.http.HttpSession;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -25,11 +27,16 @@ public class CapBookController {
 			method=RequestMethod.POST,
 			consumes=MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<String> acceptUserDetails(@RequestBody UserAccount user,HttpSession session) throws CapBookServicesDownException{
-		capBookServices.acceptUserDetails(user);
-		session.setAttribute("user", user);
-		System.out.println("Yes");
-		return new ResponseEntity<>("User Registered successfully",HttpStatus.OK);
+	public ResponseEntity<String> acceptUserDetails(@RequestBody UserAccount user,HttpSession session){
+		try {
+			capBookServices.acceptUserDetails(user);
+			session.setAttribute("user", user);
+			System.out.println("Yes");
+			return new ResponseEntity<>("User Registered successfully",HttpStatus.OK);
+		} catch (CapBookServicesDownException e) {
+			return new ResponseEntity<>("Capbook services are down",HttpStatus.OK);
+		}
+	
 	}
 
 	@RequestMapping(
@@ -72,6 +79,27 @@ public class CapBookController {
 			e.printStackTrace();
 			return null;
 		}
-		
 	}
+		
+		@RequestMapping(
+				value="/acceptFriendRequest",
+				method=RequestMethod.POST,
+				consumes=MediaType.APPLICATION_JSON_VALUE
+				)
+		public ResponseEntity<String> acceptFriendRequest(@RequestBody UserAccount senderUser,@RequestBody UserAccount receiverUser) throws CapBookServicesDownException{
+			capBookServices.acceptFriendRequest(senderUser.getEmail(),receiverUser.getEmail());
+			return new ResponseEntity<>("Friend Added successfully",HttpStatus.OK);
+	}
+		
+		@RequestMapping(
+				value="/getFriendList",
+				produces=MediaType.APPLICATION_JSON_VALUE,
+				headers="Accept=application/json"
+				)
+		public ResponseEntity<List> getFriendList(@RequestParam("email") String email){
+				List<String> list=capBookServices.getFriendList(email);
+				 return new ResponseEntity<>(list,HttpStatus.OK);	
+			
+			
+		}	
 }

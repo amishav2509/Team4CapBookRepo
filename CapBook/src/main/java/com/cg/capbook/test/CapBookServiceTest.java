@@ -47,7 +47,7 @@ public class CapBookServiceTest {
 	
 	@Before
 	public void setup() {
-	UserAccount user = new UserAccount("ap@gmail.com", "Aparajita", "Singh", "1234", "female", "28-09-1995");
+	UserAccount user = new UserAccount("ap@gmail.com", "Aparajita", "Singh", "1234", "female", "28-09-1995",null);
 	Mockito.when(userAccountDAO.findById("ap@gmail.com")).thenReturn(Optional.of(user));
 	}
 	

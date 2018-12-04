@@ -1,18 +1,28 @@
 package com.cg.capbook.beans;
 
+import java.util.ArrayList;
+import java.util.List;
+import java.util.Map;
+
+import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
 
 @Entity
 public class UserAccount {
 	@Id
 	private String email;
 	private String firstName,lastName,password,gender,dob;
+	
+	private List<String> friendList;
+	
 	public UserAccount() {
 		super();
 	}
-	public UserAccount(String email, String firstName, String lastName, String password, String gender, String dob) {
+	public UserAccount(String email, String firstName, String lastName, String password, String gender, String dob,
+			List<String> friendList) {
 		super();
 		this.email = email;
 		this.firstName = firstName;
@@ -20,7 +30,11 @@ public class UserAccount {
 		this.password = password;
 		this.gender = gender;
 		this.dob = dob;
+		this.friendList = friendList;
 	}
+
+
+
 	public UserAccount(String email, String password) {
 		super();
 		this.email = email;
@@ -61,6 +75,13 @@ public class UserAccount {
 	}
 	public void setDob(String dob) {
 		this.dob = dob;
+	}
+	
+	public List<String> getFriendList() {
+		return friendList;
+	}
+	public void setFriendList(List<String> friendList) {
+		this.friendList = friendList;
 	}
 	@Override
 	public String toString() {

@@ -32,7 +32,7 @@ public class CapBookControllerTest {
 	@MockBean
 	private CapBookServices capBookServices;
 	
-	UserAccount user=new UserAccount("ap@gmail.com", "Aparajita", "Singh", "1234", "female", "28-09-1995");
+	UserAccount user=new UserAccount("ap@gmail.com", "Aparajita", "Singh", "1234", "female", "28-09-1995",null);
 
 	String exampleUserJson = "{\"email\":\"ap@gmail.com\",\"firstName\":\"Aparajita \",\"lastName\":\"Singh\",\"password\":\"1234\",\"gender\":\"female\",\"dob\":\"28-09-1995\"}";
 
