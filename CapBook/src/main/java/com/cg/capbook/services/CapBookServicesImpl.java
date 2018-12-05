@@ -7,8 +7,13 @@ import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
+
+import com.cg.capbook.beans.FriendList;
+import com.cg.capbook.beans.FriendRequest;
 import com.cg.capbook.beans.ProfilePicture;
 import com.cg.capbook.beans.UserAccount;
+import com.cg.capbook.daoservices.FriendListDAO;
+import com.cg.capbook.daoservices.FriendRequestDAO;
 import com.cg.capbook.daoservices.ProfilePicDAO;
 import com.cg.capbook.daoservices.UserAccountDAO;
 import com.cg.capbook.exceptions.AccountNotFoundException;
@@ -24,18 +29,24 @@ public class CapBookServicesImpl implements CapBookServices{
 	@Autowired
 	private ProfilePicDAO profilePicDAO;
 	
+	@Autowired
+	private FriendListDAO friendListDAO;
+	
+	@Autowired
+	private FriendRequestDAO friendRequestDAO;
+	
 	@Override
 	public UserAccount acceptUserDetails(UserAccount user) throws CapBookServicesDownException {
 		userAccountDAO.save(user);
-		ProfilePicture profilePicture=new ProfilePicture(user.getEmail(),null);
+		ProfilePicture profilePicture=new ProfilePicture(user.getEmailID(),null);
 		profilePicDAO.save(profilePicture);
 		return  user;
 	}
 
 	@Override
-	public UserAccount getUserDetails(String email)
+	public UserAccount getUserDetails(String emailID)
 			throws CapBookServicesDownException, AccountNotFoundException {
-		return userAccountDAO.findById(email).orElseThrow(()->new AccountNotFoundException("No such account exists."));
+		return userAccountDAO.findById(emailID).orElseThrow(()->new AccountNotFoundException("No such account exists."));
 		
 	}
 
@@ -47,14 +58,14 @@ public class CapBookServicesImpl implements CapBookServices{
 	}
 
 	@Override
-	public String getProfilePicture(String email) {
-		ProfilePicture profilePicture=profilePicDAO.findById(email).get();
+	public String getProfilePicture(String emailID) {
+		ProfilePicture profilePicture=profilePicDAO.findById(emailID).get();
 		return profilePicture.getPath();
 	}
 
 	@Override
-	public String updateProfilePicture(String email, String newPath) {
-		ProfilePicture profilePicture=profilePicDAO.findById(email).get();
+	public String updateProfilePicture(String emailID, String newPath) {
+		ProfilePicture profilePicture=profilePicDAO.findById(emailID).get();
 		profilePicture.setPath(newPath);
 		profilePicDAO.save(profilePicture);
 		return profilePicture.getPath();
@@ -62,21 +73,44 @@ public class CapBookServicesImpl implements CapBookServices{
 
 	@Override
 	public boolean acceptFriendRequest(String senderEmailID, String receiverEmailID) {
-		UserAccount senderAccount=userAccountDAO.findById(senderEmailID).get();
-		UserAccount receiverAccount=userAccountDAO.findById(receiverEmailID).get();
-		List<String> myList1 = new ArrayList<String>(Arrays.asList(receiverEmailID));
-		senderAccount.setFriendList(myList1);
-		userAccountDAO.save(senderAccount);
-		List<String> myList2 = new ArrayList<String>(Arrays.asList(senderEmailID));
-		senderAccount.setFriendList(myList2);
-		userAccountDAO.save(receiverAccount);
+		FriendList friendList1=new FriendList(senderEmailID, receiverEmailID);
+		FriendList friendList2=new FriendList(receiverEmailID, senderEmailID);
+		friendListDAO.save(friendList1);
+		friendListDAO.save(friendList2);
+		friendRequestDAO.delete(friendRequestDAO.getFriendRequest(senderEmailID, receiverEmailID));
 		return true;
 	}
 
 	@Override
-	public List<String> getFriendList(String email) {
-		UserAccount user=userAccountDAO.findById(email).get();
-		return user.getFriendList();
+	public List<FriendList> getFriendList(String emailID) {
+		UserAccount user=userAccountDAO.findById(emailID).get();
+		return friendListDAO.getFriendList(user);
 	}
+
+	@Override
+	public String deleteUserAccount(String emailID) {
+		userAccountDAO.deleteById(emailID);
+		return "User Account deleted";
+	}
+
+	@Override
+	public String sendFriendRequest(String senderEmailID, String receiverEmailID) {
+		FriendRequest friendRequest=new FriendRequest(senderEmailID, receiverEmailID);
+		friendRequestDAO.save(friendRequest);
+		return "Friend Request Sent";
+	}
+
+	@Override
+	public String rejectFriendRequest(String senderEmailID, String receiverEmailID) {
+		friendRequestDAO.delete(friendRequestDAO.getFriendRequest(senderEmailID, receiverEmailID));
+		return "Friend Request Deleted";
+	}//for REJECTING and CANCELLING friend request
+
+	@Override
+	public String unfriend(String userMailID, String friendEmailID) {
+		friendListDAO.delete(friendListDAO.getFriend(userMailID, friendEmailID));
+		friendListDAO.delete(friendListDAO.getFriend( friendEmailID,userMailID));
+		return "No more friends";
+	}//confusion
 
 }

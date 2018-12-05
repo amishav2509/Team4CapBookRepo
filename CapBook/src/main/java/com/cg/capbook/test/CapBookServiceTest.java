@@ -29,14 +29,14 @@ import org.junit.Test;
 public class CapBookServiceTest {
    @Configuration
 	static class CapBookServiceTestContextConfiguration {
-	@Bean
+	/*@Bean
 	public CapBookServices capBookServices() {
 	return new CapBookServicesImpl();
 	}
 	@Bean
 	public UserAccountDAO userAccountDAO() {
 	return Mockito.mock(UserAccountDAO.class);
-	}
+	}*/
 	}
 
 	//We Autowired the UserAccountDAO bean so that it is injected from the configuration

@@ -1,30 +1,31 @@
 package com.cg.capbook.beans;
 
-import java.util.ArrayList;
-import java.util.List;
 import java.util.Map;
-
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
-
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
 @Entity
 public class UserAccount {
 	@Id
-	private String email;
+	private String emailID;
 	private String firstName,lastName,password,gender,dob;
-	
-	private List<String> friendList;
+	@OneToMany(mappedBy="user")
+	private Map<Integer, FriendList> friendList;
+	@OneToMany(mappedBy="user")
+	private Map<Integer, FriendRequest> friendRequest=null;
 	
 	public UserAccount() {
-		super();
+		// TODO Auto-generated constructor stub
 	}
-	public UserAccount(String email, String firstName, String lastName, String password, String gender, String dob,
-			List<String> friendList) {
+	public UserAccount(Map<Integer, FriendRequest> friendRequest) {
 		super();
-		this.email = email;
+		this.friendRequest = friendRequest;
+	}
+	public UserAccount(String emailID, String firstName, String lastName, String password, String gender, String dob,
+			Map<Integer, FriendList> friendList) {
+		super();
+		this.emailID = emailID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
@@ -35,16 +36,16 @@ public class UserAccount {
 
 
 
-	public UserAccount(String email, String password) {
+	public UserAccount(String emailID, String password) {
 		super();
-		this.email = email;
+		this.emailID = emailID;
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+	public String getEmailID() {
+		return emailID;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -76,16 +77,22 @@ public class UserAccount {
 	public void setDob(String dob) {
 		this.dob = dob;
 	}
-	
-	public List<String> getFriendList() {
+	public Map<Integer, FriendList> getFriendList() {
 		return friendList;
 	}
-	public void setFriendList(List<String> friendList) {
+	public void setFriendList(Map<Integer, FriendList> friendList) {
 		this.friendList = friendList;
+	}
+
+	public Map<Integer, FriendRequest> getFriendRequest() {
+		return friendRequest;
+	}
+	public void setFriendRequest(Map<Integer, FriendRequest> friendRequest) {
+		this.friendRequest = friendRequest;
 	}
 	@Override
 	public String toString() {
-		return "UserAccount [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
+		return "UserAccount [emailID=" + emailID + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
 				+ password + ", gender=" + gender + ", dob=" + dob + "]";
 	}
 	

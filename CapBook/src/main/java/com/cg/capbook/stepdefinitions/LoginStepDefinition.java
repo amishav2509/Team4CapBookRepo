@@ -28,7 +28,7 @@ public class LoginStepDefinition {
 
 	@When("^User enters correct emailId and User enters correct  password$")
 	public void user_enters_correct_emailId_and_User_enters_correct_password() throws Throwable {
-		loginPage.setEmail("abc@gmail.com");
+		loginPage.setEmailID("abc@gmail.com");
 		loginPage.setPassword("abcd123");
 		loginPage.clickSignIn();
 	}
@@ -43,7 +43,7 @@ public class LoginStepDefinition {
 
 	@When("^User enters incorrect emailId or password$")
 	public void user_enters_incorrect_emailId_or_password() throws Throwable {
-		loginPage.setEmail("abcgmail.com");
+		loginPage.setEmailID("abcgmail.com");
 		loginPage.setPassword("abcd123");
 		loginPage.clickSignIn();
 	}

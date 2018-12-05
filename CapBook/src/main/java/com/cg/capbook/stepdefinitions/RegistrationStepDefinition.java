@@ -28,7 +28,7 @@ public class RegistrationStepDefinition {
 
 	@When("^User submits valid details$")
 	public void user_submits_valid_details() throws Throwable {
-		registrationPage.setEmail("abc@gmail.com");
+		registrationPage.setEmailID("abc@gmail.com");
 		registrationPage.setPassword("abcd123");
 		registrationPage.setFirstName("Aparajita");
 		registrationPage.setLastName("Singh");
@@ -47,7 +47,7 @@ public class RegistrationStepDefinition {
 
 	@When("^User submits invalid details$")
 	public void user_submits_invalid_details() throws Throwable {
-		registrationPage.setEmail("abcgmail.com");
+		registrationPage.setEmailID("abcgmail.com");
 		registrationPage.setPassword("abcd123");
 		registrationPage.setFirstName("Aparajita");
 		registrationPage.setLastName("Singh");

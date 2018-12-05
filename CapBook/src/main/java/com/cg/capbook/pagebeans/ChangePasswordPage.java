@@ -7,7 +7,7 @@ import org.openqa.selenium.support.How;
 public class ChangePasswordPage {
 
 	
-	@FindBy(how=How.ID,id="email")
+	@FindBy(how=How.ID,id="emailID")
 	private WebElement oldPassword;
 	
 	@FindBy(how=How.ID,id="password")
