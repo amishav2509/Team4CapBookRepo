@@ -1,50 +1,51 @@
 package com.cg.capbook.beans;
 
-import java.util.ArrayList;
-import java.util.List;
+
+
 import java.util.Map;
 
-import javax.persistence.Embedded;
 import javax.persistence.Entity;
 
 import javax.persistence.Id;
 import javax.persistence.OneToMany;
 
+
+
 @Entity
 public class UserAccount {
 	@Id
-	private String email;
+	private String emailID;
 	private String firstName,lastName,password,gender,dob;
 	
-	private List<String> friendList;
+	@OneToMany(mappedBy="user")
+	private Map<Integer,Status> status;
 	
 	public UserAccount() {
 		super();
 	}
-	public UserAccount(String email, String firstName, String lastName, String password, String gender, String dob,
-			List<String> friendList) {
+	public UserAccount(String emailID, String firstName, String lastName, String password, String gender, String dob) {
 		super();
-		this.email = email;
+		this.emailID = emailID;
 		this.firstName = firstName;
 		this.lastName = lastName;
 		this.password = password;
 		this.gender = gender;
 		this.dob = dob;
-		this.friendList = friendList;
+		//this.friendList = friendList;
 	}
 
 
 
-	public UserAccount(String email, String password) {
+	public UserAccount(String emailID, String password) {
 		super();
-		this.email = email;
+		this.emailID = emailID;
 		this.password = password;
 	}
-	public String getEmail() {
-		return email;
+	public String getEmailID() {
+		return emailID;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
 	public String getFirstName() {
 		return firstName;
@@ -77,15 +78,9 @@ public class UserAccount {
 		this.dob = dob;
 	}
 	
-	public List<String> getFriendList() {
-		return friendList;
-	}
-	public void setFriendList(List<String> friendList) {
-		this.friendList = friendList;
-	}
 	@Override
 	public String toString() {
-		return "UserAccount [email=" + email + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
+		return "UserAccount [email=" + emailID + ", firstName=" + firstName + ", lastName=" + lastName + ", password="
 				+ password + ", gender=" + gender + ", dob=" + dob + "]";
 	}
 	

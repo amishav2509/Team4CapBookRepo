@@ -7,7 +7,7 @@ import org.openqa.selenium.support.How;
 public class LoginPage {
 	
 	@FindBy(how=How.ID,id="email")
-	private WebElement email;
+	private WebElement emailID;
 	
 	@FindBy(how=How.ID,id="password")
 	private WebElement password;
@@ -19,11 +19,11 @@ public class LoginPage {
 public LoginPage() {
 		super();
 	}
-public String getEmail() {
-		return email.getAttribute("value");
+public String getEmailID() {
+		return emailID.getAttribute("value");
 	}
-	public void setEmail(String email) {
-		this.email.sendKeys(email);
+	public void setEmailID(String emailID) {
+		this.emailID.sendKeys(emailID);
 	}
 
 

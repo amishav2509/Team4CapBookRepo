@@ -6,8 +6,8 @@ import org.openqa.selenium.support.How;
 
 public class RegistrationPage {
 	
-	@FindBy(how=How.ID,id="email")
-	private WebElement email;
+	@FindBy(how=How.ID,id="emailID")
+	private WebElement emailID;
 	
 	@FindBy(how=How.ID,id="email")
 	private WebElement firstName;
@@ -32,11 +32,11 @@ public class RegistrationPage {
 		super();
 	}
 
-public String getEmail() {
-		return email.getAttribute("value");
+public String getEmailID() {
+		return emailID.getAttribute("value");
 	}
-	public void setEmail(String email) {
-		this.email.sendKeys(email);
+	public void setEmailID(String emailID) {
+		this.emailID.sendKeys(emailID);
 	}
 
 public String getPassword() {

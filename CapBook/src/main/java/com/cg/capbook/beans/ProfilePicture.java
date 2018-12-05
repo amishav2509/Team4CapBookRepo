@@ -6,36 +6,36 @@ import javax.persistence.Id;
 @Entity
 public class ProfilePicture {
 	@Id
-	private String email;
+	private String emailID;
 	private String path;
 	private int status;
 	public ProfilePicture() {
 		super();
 	}
 	
-	public ProfilePicture(String email) {
+	public ProfilePicture(String emailID) {
 		super();
-		this.email = email;
+		this.emailID = emailID;
 	}
 	
 
-	public ProfilePicture(String email, String path) {
+	public ProfilePicture(String emailID, String path) {
 		super();
-		this.email = email;
+		this.emailID = emailID;
 		this.path = path;
 	}
 
-	public ProfilePicture(String email, String path, int status) {
+	public ProfilePicture(String emailID, String path, int status) {
 		super();
-		this.email = email;
+		this.emailID = emailID;
 		this.path = path;
 		this.status = status;
 	}
-	public String getEmail() {
-		return email;
+	public String getEmailID() {
+		return emailID;
 	}
-	public void setEmail(String email) {
-		this.email = email;
+	public void setEmailID(String emailID) {
+		this.emailID = emailID;
 	}
 	public String getPath() {
 		return path;
@@ -51,7 +51,7 @@ public class ProfilePicture {
 	}
 	@Override
 	public String toString() {
-		return "ProfilePicture [email=" + email + ", path=" + path + ", status=" + status + "]";
+		return "ProfilePicture [email=" + emailID + ", path=" + path + ", status=" + status + "]";
 	}
 	
 }
