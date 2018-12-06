@@ -5,6 +5,6 @@ import org.springframework.data.repository.query.Param;
 import com.cg.capbook.beans.FriendRequest;
 
 public interface FriendRequestDAO extends JpaRepository<FriendRequest, Integer>{
-	@Query("select fr from FriendRequest fr where fr.senderMailID=:senderEmailID and fr.receiverMailID=:receiverEmailID")
-	FriendRequest getFriendRequest(@Param("senderMailID") String senderEmailID,@Param("receiverMailID") String receiverEmailID);
+	@Query("select fr from FriendRequest fr where fr.senderMailID=:senderMailID and fr.receiverMailID=:receiverMailID")
+	FriendRequest getFriendRequest(@Param("senderMailID") String senderMailID,@Param("receiverMailID") String receiverMailID);
 }

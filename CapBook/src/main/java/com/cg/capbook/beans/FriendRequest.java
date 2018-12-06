@@ -12,7 +12,7 @@ public class FriendRequest {
 	private String idNumber;
 	private String senderMailID,receiverMailID;
 	@ManyToOne
-	private UserAccount user;
+	private UserAccount userAccount;
 	public FriendRequest() {
 		super();
 		// TODO Auto-generated constructor stub

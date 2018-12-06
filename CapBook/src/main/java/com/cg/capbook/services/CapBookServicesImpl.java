@@ -36,11 +36,11 @@ public class CapBookServicesImpl implements CapBookServices{
 	private FriendRequestDAO friendRequestDAO;
 	
 	@Override
-	public UserAccount acceptUserDetails(UserAccount user) throws CapBookServicesDownException {
-		userAccountDAO.save(user);
-		ProfilePicture profilePicture=new ProfilePicture(user.getEmailID(),null);
+	public UserAccount acceptUserDetails(UserAccount userAccount) throws CapBookServicesDownException {
+		userAccountDAO.save(userAccount);
+		ProfilePicture profilePicture=new ProfilePicture(userAccount.getEmailID(),null);
 		profilePicDAO.save(profilePicture);
-		return  user;
+		return  userAccount;
 	}
 
 	@Override
@@ -51,9 +51,9 @@ public class CapBookServicesImpl implements CapBookServices{
 	}
 
 	@Override
-	public String changePassword(UserAccount user,String newPassword) throws CapBookServicesDownException, AccountNotFoundException {
-		user.setPassword(newPassword);
-		userAccountDAO.save(user);
+	public String changePassword(UserAccount userAccount,String newPassword) throws CapBookServicesDownException, AccountNotFoundException {
+		userAccount.setPassword(newPassword);
+		userAccountDAO.save(userAccount);
 		return "Password changed";
 	}
 
@@ -72,19 +72,19 @@ public class CapBookServicesImpl implements CapBookServices{
 	}
 
 	@Override
-	public boolean acceptFriendRequest(String senderEmailID, String receiverEmailID) {
-		FriendList friendList1=new FriendList(senderEmailID, receiverEmailID);
-		FriendList friendList2=new FriendList(receiverEmailID, senderEmailID);
+	public boolean acceptFriendRequest(String senderMailID, String receiverMailID) {
+		FriendList friendList1=new FriendList(senderMailID, receiverMailID);
+		FriendList friendList2=new FriendList(receiverMailID, senderMailID);
 		friendListDAO.save(friendList1);
 		friendListDAO.save(friendList2);
-		friendRequestDAO.delete(friendRequestDAO.getFriendRequest(senderEmailID, receiverEmailID));
+		friendRequestDAO.delete(friendRequestDAO.getFriendRequest(senderMailID, receiverMailID));
 		return true;
 	}
 
 	@Override
 	public List<FriendList> getFriendList(String emailID) {
-		UserAccount user=userAccountDAO.findById(emailID).get();
-		return friendListDAO.getFriendList(user);
+		UserAccount userAccount=userAccountDAO.findById(emailID).get();
+		return friendListDAO.getFriendList(userAccount);
 	}
 
 	@Override
@@ -101,8 +101,8 @@ public class CapBookServicesImpl implements CapBookServices{
 	}
 
 	@Override
-	public String rejectFriendRequest(String senderEmailID, String receiverEmailID) {
-		friendRequestDAO.delete(friendRequestDAO.getFriendRequest(senderEmailID, receiverEmailID));
+	public String rejectFriendRequest(String senderMailID, String receiverMailID) {
+		friendRequestDAO.delete(friendRequestDAO.getFriendRequest(senderMailID, receiverMailID));
 		return "Friend Request Deleted";
 	}//for REJECTING and CANCELLING friend request
 

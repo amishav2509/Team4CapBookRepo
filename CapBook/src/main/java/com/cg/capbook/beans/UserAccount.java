@@ -10,11 +10,11 @@ public class UserAccount {
 	@Id
 	private String emailID;
 	private String firstName,lastName,password,gender,dob;
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="userAccount")
 	private Map<Integer, FriendList> friendList;
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="userAccount")
 	private Map<Integer, FriendRequest> friendRequest;
-	@OneToMany(mappedBy="user")
+	@OneToMany(mappedBy="userAccount")
 	private Map<Integer, Status> status;
 	
 	public UserAccount() {

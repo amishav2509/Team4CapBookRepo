@@ -13,17 +13,17 @@ public class FriendList {
 	private String idNumber;
 	private String userMailID,friendEmailID;
 	@ManyToOne
-	private UserAccount user;
+	private UserAccount userAccount;
 	public FriendList() {
 		super();
 		// TODO Auto-generated constructor stub
 	}
-	public FriendList(String idNumber, String userMailID, String friendEmailID, UserAccount user) {
+	public FriendList(String idNumber, String userMailID, String friendEmailID, UserAccount userAccount) {
 		super();
 		this.idNumber = idNumber;
 		this.userMailID = userMailID;
 		this.friendEmailID = friendEmailID;
-		this.user = user;
+		this.userAccount = userAccount;
 	}
 	
 	public FriendList(String userMailID, String friendEmailID) {
@@ -49,11 +49,11 @@ public class FriendList {
 	public void setFriendEmailID(String friendEmailID) {
 		this.friendEmailID = friendEmailID;
 	}
-	public UserAccount getUser() {
-		return user;
+	public UserAccount getUserAccount() {
+		return userAccount;
 	}
-	public void setUser(UserAccount user) {
-		this.user = user;
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 	
 

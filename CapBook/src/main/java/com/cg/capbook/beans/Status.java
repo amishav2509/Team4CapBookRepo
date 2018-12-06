@@ -18,7 +18,7 @@ public class Status {
 	private int likeStatus,unlikeStatus;
 	
 	@ManyToOne
-	private UserAccount user;
+	private UserAccount userAccount;
 
 	public Status() {
 		super();
@@ -30,12 +30,12 @@ public class Status {
 		this.status = status;
 	}
 
-	public int getStatusId() {
+	public int getStatusID() {
 		return statusID;
 	}
 
-	public void setStatusId(int statusId) {
-		this.statusID = statusId;
+	public void setStatusID(int statusID) {
+		this.statusID = statusID;
 	}
 
 	public String getEmailID() {
@@ -58,30 +58,30 @@ public class Status {
 		return likeStatus;
 	}
 
-	public void setLike(int like) {
-		this.likeStatus = like;
+	public void setLike(int likeStatus) {
+		this.likeStatus = likeStatus;
 	}
 
 	public int getUnlike() {
 		return unlikeStatus;
 	}
 
-	public void setUnlike(int unlike) {
-		this.unlikeStatus = unlike;
+	public void setUnlike(int unlikeStatus) {
+		this.unlikeStatus = unlikeStatus;
 	}
 
-	public UserAccount getUser() {
-		return user;
+	public UserAccount getUserAccount() {
+		return userAccount;
 	}
 
-	public void setUser(UserAccount user) {
-		this.user = user;
+	public void setUserAccount(UserAccount userAccount) {
+		this.userAccount = userAccount;
 	}
 
 	@Override
 	public String toString() {
-		return "Status [statusId=" + statusID + ", emailID=" + emailID + ", status=" + status + ", like=" + likeStatus
-				+ ", unlike=" + unlikeStatus + ", user=" + user + "]";
+		return "Status [statusId=" + statusID + ", emailID=" + emailID + ", status=" + status + ", likeStatus=" + likeStatus
+				+ ", unlikeStatus=" + unlikeStatus + ", userAccount=" + userAccount + "]";
 	}
 
 	

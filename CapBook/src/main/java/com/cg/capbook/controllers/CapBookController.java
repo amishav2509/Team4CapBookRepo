@@ -26,9 +26,9 @@ public class CapBookController {
 			method=RequestMethod.POST,
 			consumes=MediaType.APPLICATION_JSON_VALUE
 			)
-	public ResponseEntity<String> acceptUserDetails(@RequestBody UserAccount user){
+	public ResponseEntity<String> acceptUserDetails(@RequestBody UserAccount userAccount){
 		try {
-			capBookServices.acceptUserDetails(user);
+			capBookServices.acceptUserDetails(userAccount);
 			System.out.println("Yes");
 			return new ResponseEntity<>("User Registered successfully",HttpStatus.OK);
 		} catch (CapBookServicesDownException e) {
@@ -43,10 +43,10 @@ public class CapBookController {
 			headers="Accept=application/json"
 			)
 	public ResponseEntity<UserAccount> getUserDetails(@RequestParam("emailID") String emailID){
-		UserAccount user;
+		UserAccount userAccount;
 		try {
-			user = capBookServices.getUserDetails(emailID);
-			 return new ResponseEntity<>(user,HttpStatus.OK);	
+			userAccount = capBookServices.getUserDetails(emailID);
+			 return new ResponseEntity<>(userAccount,HttpStatus.OK);	
 		} catch (CapBookServicesDownException | AccountNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -60,13 +60,13 @@ public class CapBookController {
 			
 			)
 	public ResponseEntity<UserAccount> changePassword(@RequestParam("emailID") String emailID, @RequestParam("oldPassword") String oldPassword,@RequestParam("newPassword") String newPassword){
-		UserAccount user;
+		UserAccount userAccount;
 		try {
-			user = capBookServices.getUserDetails(emailID);
-			if(user.getPassword().equals(oldPassword)){
+			userAccount = capBookServices.getUserDetails(emailID);
+			if(userAccount.getPassword().equals(oldPassword)){
 				//session.setAttribute("user", user);
-				capBookServices.changePassword(user, newPassword);
-			 return new ResponseEntity<>(user,HttpStatus.OK);	
+				capBookServices.changePassword(userAccount, newPassword);
+			 return new ResponseEntity<>(userAccount,HttpStatus.OK);	
 			}
 			return new ResponseEntity<>(null,HttpStatus.OK);	
 		} catch (CapBookServicesDownException | AccountNotFoundException e) {
@@ -92,11 +92,11 @@ public class CapBookController {
 			
 			)
 	public ResponseEntity<UserAccount> updateProfilePhoto(@RequestParam("emailID") String emailID, @RequestParam("path") String path){
-		UserAccount user;
+		UserAccount userAccount;
 		try {
-			user = capBookServices.getUserDetails(emailID);
+			userAccount = capBookServices.getUserDetails(emailID);
 			capBookServices.updateProfilePicture(emailID, path);
-			 return new ResponseEntity<>(user,HttpStatus.OK);	
+			 return new ResponseEntity<>(userAccount,HttpStatus.OK);	
 		} catch (CapBookServicesDownException | AccountNotFoundException e) {
 			e.printStackTrace();
 			return null;
@@ -120,8 +120,8 @@ public class CapBookController {
 				)
 		public ResponseEntity<String> deleteUserAccount(@RequestParam("emailID") String emailID,@RequestParam("password") String password){
 			try {
-				UserAccount user = capBookServices.getUserDetails(emailID);
-				if(user.getPassword().equals(password))
+				UserAccount userAccount = capBookServices.getUserDetails(emailID);
+				if(userAccount.getPassword().equals(password))
 				capBookServices.deleteUserAccount(emailID);
 				System.out.println("Deleted");
 				return new ResponseEntity<>("User Account deleted successfully",HttpStatus.OK);
