@@ -51,7 +51,9 @@ public class ProfilePicture {
 	}
 	@Override
 	public String toString() {
+
 		return "ProfilePicture [emailID=" + emailID + ", path=" + path + ", status=" + status + "]";
+	
 	}
 	
 }

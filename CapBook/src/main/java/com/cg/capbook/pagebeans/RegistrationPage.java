@@ -35,8 +35,9 @@ public class RegistrationPage {
 public String getEmailID() {
 		return emailID.getAttribute("value");
 	}
-	public void setEmailID(String email) {
-		this.emailID.sendKeys(email);
+
+	public void setEmailID(String emailID) {
+		this.emailID.sendKeys(emailID);
 	}
 
 public String getPassword() {

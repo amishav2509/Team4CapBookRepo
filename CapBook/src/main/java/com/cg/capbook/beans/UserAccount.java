@@ -13,7 +13,9 @@ public class UserAccount {
 	@OneToMany(mappedBy="user")
 	private Map<Integer, FriendList> friendList;
 	@OneToMany(mappedBy="user")
-	private Map<Integer, FriendRequest> friendRequest=null;
+	private Map<Integer, FriendRequest> friendRequest;
+	@OneToMany(mappedBy="user")
+	private Map<Integer, Status> status;
 	
 	public UserAccount() {
 		// TODO Auto-generated constructor stub
@@ -89,6 +91,13 @@ public class UserAccount {
 	}
 	public void setFriendRequest(Map<Integer, FriendRequest> friendRequest) {
 		this.friendRequest = friendRequest;
+	}
+	
+	public Map<Integer, Status> getStatus() {
+		return status;
+	}
+	public void setStatus(Map<Integer, Status> status) {
+		this.status = status;
 	}
 	@Override
 	public String toString() {

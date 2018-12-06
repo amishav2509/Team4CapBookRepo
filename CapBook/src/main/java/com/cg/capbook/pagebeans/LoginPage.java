@@ -5,7 +5,7 @@ import org.openqa.selenium.support.FindBy;
 import org.openqa.selenium.support.How;
 
 public class LoginPage {
-	
+
 	@FindBy(how=How.ID,id="emailID")
 	private WebElement emailID;
 	
@@ -22,8 +22,9 @@ public LoginPage() {
 public String getEmailID() {
 		return emailID.getAttribute("value");
 	}
-	public void setEmailID(String email) {
-		this.emailID.sendKeys(email);
+
+	public void setEmailID(String emailID) {
+		this.emailID.sendKeys(emailID);
 	}
 
 
